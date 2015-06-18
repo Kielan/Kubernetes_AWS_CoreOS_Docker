@@ -1,0 +1,48 @@
+{
+    "kind": "ReplicationController",
+    "apiVersion": "v1beta3",
+    "metadata": {
+        "name": "tgweb",
+        "labels": {
+            "name": "tgweb"
+        }
+    },
+    "spec": {
+        "replicas": 3,
+        "selector": {
+            "name": "tgweb"
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "name": "tgweb"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "thegraduate/tgweb-v2",
+                        "name": "tgweb",
+                        "ports": [
+                            {
+                                "name": "http-server",
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "env": [
+                            {
+                                "name": "MONGO_URL",
+                                "value": "mongodb://test:testing@ds031822.mongolab.com:31822/test"
+                            },
+                            {
+                                "name": "ROOT_URL",
+                                "value": "http://thegraduate.asia"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
